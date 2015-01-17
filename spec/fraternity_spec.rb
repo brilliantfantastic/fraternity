@@ -30,5 +30,11 @@ describe Fraternity do
       expect(pledge).to_not be_valid
       expect(pledge.errors.for(:email).first.validation).to eq :format
     end
+
+    it "requires a token" do
+      pledge = Fraternity.rush email: "jimmy@example.com", token: ""
+      expect(pledge).to_not be_valid
+      expect(pledge.errors.for(:token).first.validation).to eq :presence
+    end
   end
 end
