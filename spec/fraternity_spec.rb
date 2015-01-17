@@ -8,5 +8,15 @@ describe Fraternity do
       pledge = Fraternity.rush email: "jimmy@example.com"
       expect(pledge.email).to eq "jimmy@example.com"
     end
+
+    it "populates a token for the pledge to use for joining" do
+      pledge = Fraternity.rush
+      expect(pledge.token).to_not be_empty
+    end
+
+    it "uses the provided token if there is one" do
+      pledge = Fraternity.rush token: "blah"
+      expect(pledge.token).to eq "blah"
+    end
   end
 end
