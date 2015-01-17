@@ -2,6 +2,7 @@ Fraternity
 ==========
 
 [ ![Codeship Status for brilliantfantastic/fraternity](https://codeship.com/projects/3fe0d950-80a4-0132-9038-321707412590/status?branch=master)](https://codeship.com/projects/57522)
+[![Coverage Status](https://coveralls.io/repos/brilliantfantastic/fraternity/badge.svg)](https://coveralls.io/r/brilliantfantastic/fraternity)
 
 ## DESCRIPTION
 

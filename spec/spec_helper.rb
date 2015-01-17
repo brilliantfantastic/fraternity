@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear!
+
 require "fraternity"
 
 RSpec.configure do |config|

@@ -4,3 +4,6 @@ begin
   task default: :spec
 rescue LoadError
 end
+
+require 'coveralls/rake/task'
+Coveralls::RakeTask.new
