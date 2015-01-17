@@ -1,6 +1,8 @@
 Fraternity
 ==========
 
+[ ![Codeship Status for brilliantfantastic/fraternity](https://codeship.com/projects/3fe0d950-80a4-0132-9038-321707412590/status?branch=master)](https://codeship.com/projects/57522)
+
 ## DESCRIPTION
 
 An easier way to rush for a beta.
