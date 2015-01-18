@@ -15,6 +15,7 @@ module Fraternity
 
   def self.rush(params={})
     params[:token] ||= TemporaryToken.generate_random_token
+    params[:initiation_number] ||= Time.now.to_i
     Fraternity::Pledge.new params
   end
 

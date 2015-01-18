@@ -19,6 +19,18 @@ describe Fraternity do
       expect(pledge.token).to eq "blah"
     end
 
+    it "creates an initiation number" do
+      pledge = Fraternity.rush
+      expect(pledge.initiation_number).to_not be_nil
+      initiated_at = Time.at pledge.initiation_number
+      expect((Time.now - initiated_at).to_i).to be < 1
+    end
+
+    it "uses the provided initiation number if there is one" do
+      pledge = Fraternity.rush initiation_number: 12345
+      expect(pledge.initiation_number).to eq 12345
+    end
+
     it "requires an email address" do
       pledge = Fraternity.rush
       expect(pledge).to_not be_valid
@@ -35,6 +47,12 @@ describe Fraternity do
       pledge = Fraternity.rush email: "jimmy@example.com", token: ""
       expect(pledge).to_not be_valid
       expect(pledge.errors.for(:token).first.validation).to eq :presence
+    end
+
+    it "requires an initiation number" do
+      pledge = Fraternity.rush email: "jimmy@example.com", token: "123456", initiation_number: ""
+      expect(pledge).to_not be_valid
+      expect(pledge.errors.for(:initiation_number).first.validation).to eq :presence
     end
   end
 
