@@ -24,4 +24,16 @@ describe Fraternity::Pledge do
       expect(pledge.errors.for(:initiation_number).first.validation).to eq :presence
     end
   end
+
+  describe "#invited?" do
+    it "is not invited if the date and time when they were invited is not set" do
+      pledge = Fraternity::Pledge.new
+      expect(pledge).to_not be_invited
+    end
+
+    it "is invited if the date and time when they were invited is set" do
+      pledge = Fraternity::Pledge.new invited_at: DateTime.now
+      expect(pledge).to be_invited
+    end
+  end
 end

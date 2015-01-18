@@ -13,6 +13,7 @@ module Fraternity
         attribute :email,               String
         attribute :token,               String
         attribute :initiation_number,   Integer
+        attribute :invited_at,          DateTime
       end
     end
 
