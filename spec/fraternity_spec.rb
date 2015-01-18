@@ -53,4 +53,19 @@ describe Fraternity do
       end
     end
   end
+
+  describe ".bid!" do
+    let(:pledge) { Fraternity::Repositories::PledgeRepository.create(Fraternity::Pledge.new(email: "jimmy@example.com", token: "1234", initiation_number: Time.now.to_i)) }
+
+    before do
+      load_repositories!
+      pledge
+    end
+
+    it "invites the uninvited" do
+      pledges = Fraternity.bid! 5
+      expect(pledges.to_a[0].id).to eq pledge.id
+      expect(pledges.to_a[0]).to be_invited
+    end
+  end
 end

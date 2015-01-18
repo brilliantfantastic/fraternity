@@ -24,4 +24,11 @@ module Fraternity
   def self.rush!(params)
     Repositories::PledgeRepository.create self.rush(params)
   end
+
+  def self.bid!(quota)
+    Repositories::PledgeRepository.oldest_uninvited_by_initiation_number(quota).collect do |pledge|
+      pledge.invite!
+      Repositories::PledgeRepository.persist pledge
+    end
+  end
 end
