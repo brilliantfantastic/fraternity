@@ -26,7 +26,7 @@ module Fraternity
 
     def cross!(token)
       raise Fraternity::PerpError if !invited?
-      raise Fraternity::TokenMismatchError if token != self.token
+      raise Fraternity::TokenMismatchError.new(self.token, token) if token != self.token
       self.accepted_at = DateTime.now
     end
 
