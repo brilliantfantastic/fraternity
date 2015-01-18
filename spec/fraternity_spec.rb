@@ -56,4 +56,12 @@ describe Fraternity do
       expect(pledge.id).to_not be_nil
     end
   end
+
+  describe ".configure" do
+    it "yields an instance of configuration" do
+      Fraternity.configure(false) do |config|
+        expect(config).to eq Fraternity.configuration
+      end
+    end
+  end
 end
