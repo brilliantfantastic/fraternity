@@ -29,6 +29,8 @@ module Fraternity
     Repositories::PledgeRepository.oldest_uninvited_by_initiation_number(quota).collect do |pledge|
       pledge.invite!
       Repositories::PledgeRepository.persist pledge
+      configuration.send_invite.call pledge
+      pledge
     end
   end
 end

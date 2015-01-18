@@ -67,5 +67,16 @@ describe Fraternity do
       expect(pledges.to_a[0].id).to eq pledge.id
       expect(pledges.to_a[0]).to be_invited
     end
+
+    it "sends the invite" do
+      sent_invite = false
+      Fraternity.configure(false) do |c|
+        c.send_invite = lambda do |pledge|
+          sent_invite = true
+        end
+      end
+      pledges = Fraternity.bid! 5
+      expect(sent_invite).to be true
+    end
   end
 end
