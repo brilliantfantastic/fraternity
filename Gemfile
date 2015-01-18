@@ -9,4 +9,5 @@ gem 'lotus-validations'
 group :development, :test do
   gem 'rspec'
   gem 'coveralls'
+  gem 'sqlite3'
 end
