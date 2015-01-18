@@ -56,4 +56,24 @@ describe Fraternity::Pledge do
       expect(pledge).to be_crossed
     end
   end
+
+  describe "#cross!" do
+    it "sets the date and time of when the pledge has accepted the invite to the current date and time" do
+      token = "12345"
+      pledge = Fraternity::Pledge.new token: token, invited_at: DateTime.now
+      pledge.cross! token
+      expect(pledge).to be_crossed
+    end
+
+    it "does not cross over if the token does not match" do
+      pledge = Fraternity::Pledge.new token: "12345", invited_at: DateTime.now
+      expect { pledge.cross! "blah" }.to raise_error Fraternity::TokenMismatchError
+    end
+
+    it "does not cross over if the pledge was not invited" do
+      token = "12345"
+      pledge = Fraternity::Pledge.new token: token
+      expect { pledge.cross! token }.to raise_error Fraternity::PerpError
+    end
+  end
 end

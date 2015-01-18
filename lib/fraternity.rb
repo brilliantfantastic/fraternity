@@ -1,7 +1,9 @@
 require "fraternity/configuration"
+require "fraternity/perp_error"
 require "fraternity/pledge"
 require "fraternity/repositories"
 require "fraternity/temporary_token"
+require "fraternity/token_mismatch_error"
 
 module Fraternity
   def self.configuration
