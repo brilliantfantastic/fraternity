@@ -33,12 +33,7 @@ describe Fraternity do
   end
 
   describe ".rush!" do
-    before do
-      require "lotus/model/adapters/memory_adapter"
-      mapping = Fraternity::Repositories.mapping
-      Fraternity::Repositories::PledgeRepository.adapter = Lotus::Model::Adapters::MemoryAdapter.new mapping
-      mapping.load!
-    end
+    before { load_repositories! }
 
     it "creates a new pledge with the specified parameters" do
       pledge = Fraternity.rush! email: "jimmy@example.com"
