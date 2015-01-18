@@ -9,6 +9,8 @@ Fraternity
 
 An easier way to rush for a beta.
 
+A gem allows you to collect and store (using only [the Lotus framework](http://lotusrb.com) as of now) a list of pledges who would like access to your beta. You can send out bids to those pledges and allow them to gain access to your beta.
+
 ## INSTALLATION
 
 Add this line to your Gemfile:
@@ -29,9 +31,42 @@ Or install it yourself:
 gem install fraternity
 ```
 
+Create the database table needed:
+
+```
+bundle exec rake fraternity:install
+```
+
+The above will create the following table.
+
+```
+create_table :pledges do |t|
+  t.primary_key   :id
+  String          :token
+  String          :email
+  String          :first_name
+  String          :last_name
+  Integer         :initiation_number
+  DateTime        :invited_at
+  DateTime        :accepted_at
+  DateTime        :created_at
+  DateTime        :updated_at
+end
+```
+
 ## USAGE
 
 If you are unfamiliar with the terminology, you can read up at [http://www.unlv.edu/getinvolved/greek-definitions](http://www.unlv.edu/getinvolved/greek-definitions).
+
+### Configuring
+
+In order to use your Fraternity, you have to configure it before you use it.
+
+```
+Fraternity.configure do |config|
+  configure.database_url = ENV["DATABASE_URL"]
+end
+```
 
 ### Pledging
 
@@ -43,19 +78,6 @@ pledge = Fraternity.rush! params
 ```
 
 The above saves the information to the pledges database and creates a token for a `Pledge`
-
-```
-create_table :pledges do |t|
-  t.string    :token
-  t.string    :email
-  t.datetime  :sent_at
-  t.datetime  :invited_at
-  t.datetime  :accepted_at
-  t.integer   :initiation_number
-
-  t.timestamps
-end
-```
 
 ### Moving up the initiation line
 
