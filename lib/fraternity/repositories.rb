@@ -11,6 +11,8 @@ module Fraternity
 
         attribute :id,                  Integer
         attribute :email,               String
+        attribute :first_name,          String
+        attribute :last_name,           String
         attribute :token,               String
         attribute :initiation_number,   Integer
         attribute :invited_at,          DateTime
