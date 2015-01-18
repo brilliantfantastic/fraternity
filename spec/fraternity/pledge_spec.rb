@@ -1,0 +1,27 @@
+describe Fraternity::Pledge do
+  describe "validations" do
+    it "requires an email address" do
+      pledge = Fraternity::Pledge.new
+      expect(pledge).to_not be_valid
+      expect(pledge.errors.for(:email).first.validation).to eq :presence
+    end
+
+    it "requires a valid email address" do
+      pledge = Fraternity::Pledge.new email: "blah@test"
+      expect(pledge).to_not be_valid
+      expect(pledge.errors.for(:email).first.validation).to eq :format
+    end
+
+    it "requires a token" do
+      pledge = Fraternity::Pledge.new email: "jimmy@example.com", token: ""
+      expect(pledge).to_not be_valid
+      expect(pledge.errors.for(:token).first.validation).to eq :presence
+    end
+
+    it "requires an initiation number" do
+      pledge = Fraternity::Pledge.new email: "jimmy@example.com", token: "123456", initiation_number: ""
+      expect(pledge).to_not be_valid
+      expect(pledge.errors.for(:initiation_number).first.validation).to eq :presence
+    end
+  end
+end
