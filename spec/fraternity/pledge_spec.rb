@@ -36,4 +36,12 @@ describe Fraternity::Pledge do
       expect(pledge).to be_invited
     end
   end
+
+  describe "#invite!" do
+    it "sets the date and time of when the pledge was invited to the current date and time" do
+      pledge = Fraternity::Pledge.new
+      pledge.invite!
+      expect(pledge).to be_invited
+    end
+  end
 end

@@ -14,6 +14,10 @@ module Fraternity
       @id, @email, @token, @initiation_number, @invited_at = attributes.values_at :id, :email, :token, :initiation_number, :invited_at
     end
 
+    def invite!
+      self.invited_at = DateTime.now
+    end
+
     def invited?
       !self.invited_at.nil?
     end
