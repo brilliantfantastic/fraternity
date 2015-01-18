@@ -37,4 +37,23 @@ describe Fraternity do
       expect(pledge.errors.for(:token).first.validation).to eq :presence
     end
   end
+
+  describe ".rush!" do
+    before do
+      require "lotus/model/adapters/memory_adapter"
+      mapping = Fraternity::Repositories.mapping
+      Fraternity::Repositories::PledgeRepository.adapter = Lotus::Model::Adapters::MemoryAdapter.new mapping
+      mapping.load!
+    end
+
+    it "creates a new pledge with the specified parameters" do
+      pledge = Fraternity.rush! email: "jimmy@example.com"
+      expect(pledge.email).to eq "jimmy@example.com"
+    end
+
+    it "saves the new pledge to the database" do
+      pledge = Fraternity.rush! email: "jimmy@example.com"
+      expect(pledge.id).to_not be_nil
+    end
+  end
 end
