@@ -8,6 +8,11 @@ module Fraternity
       collection :pledges do
         entity Fraternity::Pledge
         repository PledgeRepository
+
+        attribute :id,                  Integer
+        attribute :email,               String
+        attribute :token,               String
+        attribute :initiation_number,   Integer
       end
     end
 
