@@ -44,4 +44,16 @@ describe Fraternity::Pledge do
       expect(pledge).to be_invited
     end
   end
+
+  describe "#crossed?" do
+    it "is not crossed if they have not accepted the invitation" do
+      pledge = Fraternity::Pledge.new
+      expect(pledge).to_not be_crossed
+    end
+
+    it "is crossed if they have accepted the invitation" do
+      pledge = Fraternity::Pledge.new accepted_at: DateTime.now
+      expect(pledge).to be_crossed
+    end
+  end
 end

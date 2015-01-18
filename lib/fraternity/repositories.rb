@@ -14,6 +14,7 @@ module Fraternity
         attribute :token,               String
         attribute :initiation_number,   Integer
         attribute :invited_at,          DateTime
+        attribute :accepted_at,         DateTime
       end
     end
 
