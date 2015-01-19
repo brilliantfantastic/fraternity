@@ -102,7 +102,6 @@ Find out if a pledge has been invited
 
 ```
 Fraternity::Pledge.find(123).invited?
-Fraternity.invited? "steven.speilburg@example.com"
 ```
 
 Resend an invite
@@ -113,11 +112,16 @@ Fraternity::Pledge.find(123).bid!
 
 ### Accepting a pledge
 
-Check to see if a pledge is ready to be crossed into a full member
+Check to see if a pledge is ready to be crossed into a full time member (invited and not crossed)
 
 ```
 Fraternity::Pledge.find(token).ready?
-Fraternity.ready? token
+```
+
+Check to see if a pledge has been crossed into a full member
+
+```
+Fraternity::Pledge.find(token).crossed?
 ```
 
 Convert the pledge into a full member (accept the invitation).
