@@ -1,3 +1,4 @@
+require "fraternity/version"
 require "fraternity/bidder"
 require "fraternity/configuration"
 require "fraternity/perp_error"
