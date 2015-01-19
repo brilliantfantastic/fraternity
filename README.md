@@ -34,7 +34,7 @@ gem install fraternity
 Create the database table needed:
 
 ```
-bundle exec rake fraternity:install
+bundle exec rake fraternity:install DESTINATION="db/migrate"
 ```
 
 The above will create the following table.
@@ -49,8 +49,6 @@ create_table :pledges do |t|
   Integer         :initiation_number
   DateTime        :invited_at
   DateTime        :accepted_at
-  DateTime        :created_at
-  DateTime        :updated_at
 end
 ```
 
