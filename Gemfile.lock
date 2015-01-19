@@ -1,3 +1,11 @@
+PATH
+  remote: .
+  specs:
+    fraternity (0.0.1)
+      lotus-model
+      lotus-validations
+      rake
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -49,8 +57,6 @@ PLATFORMS
 
 DEPENDENCIES
   coveralls
-  lotus-model
-  lotus-validations
-  rake
+  fraternity!
   rspec
   sqlite3
