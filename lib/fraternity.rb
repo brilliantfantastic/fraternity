@@ -34,7 +34,10 @@ module Fraternity
     end
   end
 
-  def self.find(token)
-    Repositories::PledgeRepository.find_by_token token
+  def self.find(identifier)
+    if identifier.is_a? Integer
+      return Repositories::PledgeRepository.find_by_id identifier
+    end
+    Repositories::PledgeRepository.find_by_token identifier
   end
 end

@@ -37,10 +37,15 @@ describe Fraternity do
     let(:token) { "HJDKSYS6782W" }
     let(:pledge) { Fraternity::Pledge.new id: 123, token: token, email: "jimmy@example.com" }
 
-    before { allow(Fraternity::Repositories::PledgeRepository).to receive(:find_by_token).and_return pledge }
-
     it "returns a pledge based on their token" do
+      allow(Fraternity::Repositories::PledgeRepository).to receive(:find_by_token).and_return pledge
       actual = Fraternity.find token
+      expect(actual.id).to eq pledge.id
+    end
+
+    it "returns a pledge based on their id" do
+      allow(Fraternity::Repositories::PledgeRepository).to receive(:find_by_id).and_return pledge
+      actual = Fraternity.find pledge.id
       expect(actual.id).to eq pledge.id
     end
   end
