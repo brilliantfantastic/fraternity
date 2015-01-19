@@ -85,4 +85,21 @@ describe Fraternity::Pledge do
       expect(((DateTime.now - pledge.invited_at) * 24 * 60 * 60).to_i).to be < 1
     end
   end
+
+  describe "#ready?" do
+    it "returns true if the pledge is invited but not yet crossed" do
+      pledge = Fraternity::Pledge.new token: "1234", invited_at: DateTime.now
+      expect(pledge).to be_ready
+    end
+
+    it "is not ready if they have not been invited" do
+      pledge = Fraternity::Pledge.new token: "1234"
+      expect(pledge).to_not be_ready
+    end
+
+    it "is not ready if they have crossed" do
+      pledge = Fraternity::Pledge.new token: "1234", invited_at: DateTime.now, accepted_at: DateTime.now
+      expect(pledge).to_not be_ready
+    end
+  end
 end

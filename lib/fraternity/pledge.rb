@@ -37,5 +37,9 @@ module Fraternity
     def crossed?
       !self.accepted_at.nil?
     end
+
+    def ready?
+      self.invited? && !self.crossed?
+    end
   end
 end
