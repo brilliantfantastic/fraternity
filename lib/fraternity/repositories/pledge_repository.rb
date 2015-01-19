@@ -5,6 +5,12 @@ module Fraternity
     class PledgeRepository
       include Lotus::Repository
 
+      def self.find_by_token(token)
+        query do
+          where(token: token)
+        end.first
+      end
+
       def self.oldest_uninvited_by_initiation_number(limit=8)
         query do
           where(invited_at: nil).
