@@ -65,6 +65,9 @@ In order to use your Fraternity, you have to configure it before you use it.
 ```
 Fraternity.configure do |config|
   configure.database_url = ENV["DATABASE_URL"]
+  configure.send_invite = lambda do |pledge|
+    BetaMailer.invite_email(pledge).deliver
+  end
 end
 ```
 
@@ -92,6 +95,8 @@ invited = Fraternity.bid! quota
 ```
 
 The above saves the date/time of the invite to all the invited pledges and returns an array of the invited.
+
+The above will also call the `send_invite` proc that you have set up in the configuration. You are responsible for sending the invite to the pledge any way you like.
 
 Find out if a pledge has been invited
 
