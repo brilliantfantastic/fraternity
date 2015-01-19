@@ -1,4 +1,50 @@
 describe Fraternity do
+  describe ".bid!" do
+    let(:pledge) { Fraternity::Repositories::PledgeRepository.create(Fraternity::Pledge.new(email: "jimmy@example.com", token: "1234", initiation_number: Time.now.to_i)) }
+
+    before do
+      load_repositories!
+      pledge
+    end
+
+    it "invites the uninvited" do
+      pledges = Fraternity.bid! 5
+      expect(pledges.to_a[0].id).to eq pledge.id
+      expect(pledges.to_a[0]).to be_invited
+    end
+
+    it "sends the invite" do
+      sent_invite = false
+      Fraternity.configure(false) do |c|
+        c.send_invite = lambda do |pledge|
+          sent_invite = true
+        end
+      end
+      pledges = Fraternity.bid! 5
+      expect(sent_invite).to be true
+    end
+  end
+
+  describe ".configure" do
+    it "yields an instance of configuration" do
+      Fraternity.configure(false) do |config|
+        expect(config).to eq Fraternity.configuration
+      end
+    end
+  end
+
+  describe ".find" do
+    let(:token) { "HJDKSYS6782W" }
+    let(:pledge) { Fraternity::Pledge.new id: 123, token: token, email: "jimmy@example.com" }
+
+    before { allow(Fraternity::Repositories::PledgeRepository).to receive(:find_by_token).and_return pledge }
+
+    it "returns a pledge based on their token" do
+      actual = Fraternity.find token
+      expect(actual.id).to eq pledge.id
+    end
+  end
+
   describe ".rush" do
     it "rushes with parameters that describe the pledge" do
       expect { Fraternity.rush email: "blah" }.to_not raise_error
@@ -43,40 +89,6 @@ describe Fraternity do
     it "saves the new pledge to the database" do
       pledge = Fraternity.rush! email: "jimmy@example.com"
       expect(pledge.id).to_not be_nil
-    end
-  end
-
-  describe ".configure" do
-    it "yields an instance of configuration" do
-      Fraternity.configure(false) do |config|
-        expect(config).to eq Fraternity.configuration
-      end
-    end
-  end
-
-  describe ".bid!" do
-    let(:pledge) { Fraternity::Repositories::PledgeRepository.create(Fraternity::Pledge.new(email: "jimmy@example.com", token: "1234", initiation_number: Time.now.to_i)) }
-
-    before do
-      load_repositories!
-      pledge
-    end
-
-    it "invites the uninvited" do
-      pledges = Fraternity.bid! 5
-      expect(pledges.to_a[0].id).to eq pledge.id
-      expect(pledges.to_a[0]).to be_invited
-    end
-
-    it "sends the invite" do
-      sent_invite = false
-      Fraternity.configure(false) do |c|
-        c.send_invite = lambda do |pledge|
-          sent_invite = true
-        end
-      end
-      pledges = Fraternity.bid! 5
-      expect(sent_invite).to be true
     end
   end
 end

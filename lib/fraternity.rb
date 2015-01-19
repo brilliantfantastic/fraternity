@@ -33,4 +33,8 @@ module Fraternity
       pledge
     end
   end
+
+  def self.find(token)
+    Repositories::PledgeRepository.find_by_token token
+  end
 end
