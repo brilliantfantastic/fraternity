@@ -33,8 +33,10 @@ gem install fraternity
 
 Create the database table needed:
 
+**Coming soon**
+
 ```
-bundle exec rake fraternity:install DESTINATION="db/migrate"
+fraternity install "db/migrate"
 ```
 
 The above will create the following table.
