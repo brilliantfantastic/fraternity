@@ -25,5 +25,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rake"
   spec.add_dependency "lotus-model"
-  spec.add_dependency "lotus-validations"
+  spec.add_dependency "lotus-validations", "~> 0.2.3"
 end

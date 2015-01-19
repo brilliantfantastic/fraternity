@@ -3,7 +3,7 @@ PATH
   specs:
     fraternity (0.0.1)
       lotus-model
-      lotus-validations
+      lotus-validations (~> 0.2.3)
       rake
 
 GEM
