@@ -76,4 +76,13 @@ describe Fraternity::Pledge do
       expect { pledge.cross! token }.to raise_error Fraternity::PerpError
     end
   end
+
+  describe "#bid!" do
+    it "updates the date and time they were invited" do
+      pledge = Fraternity::Pledge.new id: 123, token: "12345", email: "jimmy@example.com", invited_at: DateTime.new(2015, 1, 18)
+      allow(Fraternity::Repositories::PledgeRepository).to receive(:persist).and_return pledge
+      pledge.bid!
+      expect(((DateTime.now - pledge.invited_at) * 24 * 60 * 60).to_i).to be < 1
+    end
+  end
 end

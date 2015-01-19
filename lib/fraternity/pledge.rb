@@ -16,6 +16,10 @@ module Fraternity
         attributes.values_at :id, :email, :first_name, :last_name, :token, :initiation_number, :invited_at, :accepted_at
     end
 
+    def bid!
+      Bidder.new(self).bid!
+    end
+
     def invite!
       self.invited_at = DateTime.now
     end
