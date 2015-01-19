@@ -5,6 +5,12 @@ module Fraternity
     class PledgeRepository
       include Lotus::Repository
 
+      def self.find_by_id(id)
+        query do
+          where(id: id)
+        end.first
+      end
+
       def self.find_by_token(token)
         query do
           where(token: token)
