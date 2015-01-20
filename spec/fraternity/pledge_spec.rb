@@ -102,4 +102,24 @@ describe Fraternity::Pledge do
       expect(pledge).to_not be_ready
     end
   end
+
+  describe "#merge" do
+    it "updates attributes that were not set" do
+      pledge = Fraternity::Pledge.new token: "1234"
+      pledge.merge email: "jimmy@example.com"
+      expect(pledge.email).to eq "jimmy@example.com"
+    end
+
+    it "updates attributes that were already set" do
+      pledge = Fraternity::Pledge.new token: "1234"
+      pledge.merge token: "5678"
+      expect(pledge.token).to eq "5678"
+    end
+
+    it "does not delete attributes that were not set" do
+      pledge = Fraternity::Pledge.new token: "1234", first_name: "Jimmy"
+      pledge.merge email: "jimmy@example.com"
+      expect(pledge.first_name).to eq "Jimmy"
+    end
+  end
 end

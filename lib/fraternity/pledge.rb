@@ -11,7 +11,6 @@ module Fraternity
     validates :initiation_number, presence: true
 
     def initialize(attributes={})
-
       @id, @email, @first_name, @last_name, @token, @initiation_number, @invited_at, @accepted_at =
         attributes.values_at :id, :email, :first_name, :last_name, :token, :initiation_number, :invited_at, :accepted_at
     end
@@ -40,6 +39,13 @@ module Fraternity
 
     def ready?
       self.invited? && !self.crossed?
+    end
+
+    def merge(attributes={})
+      attributes.each_pair do |attribute, value|
+        method = "#{attribute}="
+        self.public_send method, value if self.respond_to? method
+      end
     end
   end
 end
