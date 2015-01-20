@@ -32,6 +32,21 @@ describe Fraternity::Repositories::PledgeRepository do
     end
   end
 
+  describe ".find_by_email" do
+    let(:pledge) { Fraternity::Repositories::PledgeRepository.create(Fraternity::Pledge.new(email: "jimmy@example.com", token: "12345", initiation_number: Time.now.to_i)) }
+
+    it "returns the first pledge with the email" do
+      pledge
+      actual = Fraternity::Repositories::PledgeRepository.find_by_email pledge.email
+      expect(actual.id).to eq pledge.id
+    end
+
+    it "returns nil if the pledge does not exist" do
+      actual = Fraternity::Repositories::PledgeRepository.find_by_email "blah@blah.com"
+      expect(actual).to be_nil
+    end
+  end
+
   describe ".oldest_univited_by_initiation_number" do
     let(:four_days_ago) { Time.now.to_i - 24 * 60 * 60 * 4 }
     let(:six_days_ago) { Time.now.to_i - 24 * 60 * 60 * 6 }

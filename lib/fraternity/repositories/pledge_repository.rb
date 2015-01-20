@@ -11,6 +11,12 @@ module Fraternity
         end.first
       end
 
+      def self.find_by_email(email)
+        query do
+          where(email: email)
+        end.first
+      end
+
       def self.find_by_token(token)
         query do
           where(token: token)
