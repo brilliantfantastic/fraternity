@@ -29,7 +29,7 @@ module Fraternity
   end
 
   def self.rush!(params)
-    Repositories::PledgeRepository.create self.rush(params)
+    Repositories::PledgeRepository.persist self.rush(params)
   end
 
   def self.bid!(quota)
