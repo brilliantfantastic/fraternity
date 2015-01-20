@@ -18,9 +18,14 @@ module Fraternity
   end
 
   def self.rush(params={})
-    params[:token] ||= TemporaryToken.generate_random_token
-    params[:initiation_number] ||= Time.now.to_i
-    Fraternity::Pledge.new params
+    pledge = Repositories::PledgeRepository.find_by_email params[:email]
+    if pledge
+      pledge
+    else
+      params[:token] ||= TemporaryToken.generate_random_token
+      params[:initiation_number] ||= Time.now.to_i
+      Fraternity::Pledge.new params
+    end
   end
 
   def self.rush!(params)

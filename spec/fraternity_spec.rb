@@ -81,6 +81,18 @@ describe Fraternity do
       pledge = Fraternity.rush initiation_number: 12345
       expect(pledge.initiation_number).to eq 12345
     end
+
+    context "with an existing pledge" do
+      let(:email) { "jimmy@example.com" }
+      let(:pledge) { Fraternity::Pledge.new id: 123, token: "12345", email: email }
+
+      before { allow(Fraternity::Repositories::PledgeRepository).to receive(:find_by_email).and_return pledge }
+
+      it "returns an existing pledge based on their email" do
+        actual = Fraternity.rush email: email
+        expect(actual.id).to eq pledge.id
+      end
+    end
   end
 
   describe ".rush!" do
