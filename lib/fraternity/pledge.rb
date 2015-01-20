@@ -31,6 +31,7 @@ module Fraternity
       raise Fraternity::PerpError if !invited?
       raise Fraternity::TokenMismatchError.new(self.token, token) if token != self.token
       self.accepted_at = DateTime.now
+      Repositories::PledgeRepository.persist self
     end
 
     def crossed?

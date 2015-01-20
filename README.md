@@ -127,7 +127,7 @@ Fraternity::Pledge.find(token).crossed?
 Convert the pledge into a full member (accept the invitation).
 
 ```
-Fraternity::Pledge.cross! token
+Fraternity::Pledge.find(token).cross! token
 ```
 
 ## CONTRIBUTING
