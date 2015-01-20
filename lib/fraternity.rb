@@ -20,6 +20,7 @@ module Fraternity
   def self.rush(params={})
     pledge = Repositories::PledgeRepository.find_by_email params[:email]
     if pledge
+      pledge.merge params
       pledge
     else
       params[:token] ||= TemporaryToken.generate_random_token

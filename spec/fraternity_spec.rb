@@ -92,6 +92,11 @@ describe Fraternity do
         actual = Fraternity.rush email: email
         expect(actual.id).to eq pledge.id
       end
+
+      it "merges the parameters for updating the pledge" do
+        actual = Fraternity.rush email: email, first_name: "Robert"
+        expect(actual.first_name).to eq "Robert"
+      end
     end
   end
 
