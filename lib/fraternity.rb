@@ -21,12 +21,13 @@ module Fraternity
     pledge = Repositories::PledgeRepository.find_by_email params[:email]
     if pledge
       pledge.merge params
-      pledge
     else
       params[:token] ||= TemporaryToken.generate_random_token
       params[:initiation_number] ||= Time.now.to_i
-      Fraternity::Pledge.new params
+      pledge = Fraternity::Pledge.new params
     end
+    configuration.receive_pledge.call pledge
+    pledge
   end
 
   def self.rush!(params)

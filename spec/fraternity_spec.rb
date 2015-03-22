@@ -51,6 +51,8 @@ describe Fraternity do
   end
 
   describe ".rush" do
+    before { load_repositories! }
+
     it "rushes with parameters that describe the pledge" do
       expect { Fraternity.rush email: "blah" }.to_not raise_error
     end
@@ -75,6 +77,17 @@ describe Fraternity do
       expect(pledge.initiation_number).to_not be_nil
       initiated_at = Time.at pledge.initiation_number
       expect((Time.now - initiated_at).to_i).to be < 1
+    end
+
+    it "calls the receive pledge hook" do
+      receive_pledge = false
+      Fraternity.configure(false) do |c|
+        c.receive_pledge = lambda do |pledge|
+          receive_pledge = true
+        end
+      end
+      pledges = Fraternity.rush
+      expect(receive_pledge).to be true
     end
 
     it "uses the provided initiation number if there is one" do
