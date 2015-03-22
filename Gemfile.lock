@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fraternity (0.0.3)
+    fraternity (0.0.4)
       lotus-model
       lotus-validations (~> 0.2.3)
       rake
