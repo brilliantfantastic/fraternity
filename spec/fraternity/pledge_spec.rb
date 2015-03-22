@@ -59,6 +59,7 @@ describe Fraternity::Pledge do
 
   describe "#cross!" do
     it "sets the date and time of when the pledge has accepted the invite to the current date and time" do
+      load_repositories!
       token = "12345"
       pledge = Fraternity::Pledge.new token: token, invited_at: DateTime.now
       pledge.cross! token

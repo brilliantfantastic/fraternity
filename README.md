@@ -68,6 +68,9 @@ Fraternity.configure do |config|
   configure.send_invite = lambda do |pledge|
     BetaMailer.invite_email(pledge).deliver
   end
+  config.receive_pledge = lambda do |pledge|
+    AdminMailer.new_pledge_email(pledge).deliver
+  end
 end
 ```
 
@@ -80,7 +83,7 @@ params = { email: "jeremy.piven@example.com" } # Optional attributes you want to
 pledge = Fraternity.rush! params
 ```
 
-The above saves the information to the pledges database and creates a token for a `Pledge`
+The above saves the information to the pledges database and creates a token for a `Pledge`. It calls the `receive_pledge` hook with the new `Pledge` instance that is defined in the configuration.
 
 ### Moving up the initiation line
 
